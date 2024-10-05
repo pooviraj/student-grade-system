@@ -1,0 +1,70 @@
+# Function to input grades for a student
+def get_student_grades():
+    student = {}
+    student['name'] = input("Enter the student's name: ")
+
+    subjects = {}
+    while True:
+        subject = input("Enter the subject name (or type 'done' to finish): ")
+        if subject.lower() == 'done':
+            break
+        try:
+            grade = float(input(f"Enter the grade for {subject}: "))
+            subjects[subject] = grade
+        except ValueError:
+            print("Please enter a valid numeric grade.")
+
+    student['grades'] = subjects
+    return student
+
+# Function to calculate the average of all grades
+def calculate_average(grades):
+    if len(grades) == 0:
+        return 0
+    return sum(grades.values()) / len(grades)
+
+# Function to determine the letter grade based on the average
+def get_letter_grade(average):
+    if average >= 90:
+        return 'A'
+    elif average >= 80:
+        return 'B'
+    elif average >= 70:
+        return 'C'
+    elif average >= 60:
+        return 'D'
+    else:
+        return 'F'
+
+# Function to calculate GPA based on the average grade
+def calculate_gpa(average):
+    if average >= 90:
+        return 4.0
+    elif average >= 80:
+        return 3.0
+    elif average >= 70:
+        return 2.0
+    elif average >= 60:
+        return 1.0
+    else:
+        return 0.0
+
+# Function to display the student's grade summary
+def display_grades(student):
+    avg = calculate_average(student['grades'])
+    letter_grade = get_letter_grade(avg)
+    gpa = calculate_gpa(avg)
+
+    print(f"\nStudent: {student['name']}")
+    print(f"Average Grade: {avg:.2f}")
+    print(f"Letter Grade: {letter_grade}")
+    print(f"GPA: {gpa:.2f}")
+
+# Main function to execute the program
+def main():
+    student = get_student_grades()
+    display_grades(student)
+
+# Run the program
+if _name_ == "_main_":
+    main()
